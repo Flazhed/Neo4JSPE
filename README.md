@@ -1,6 +1,7 @@
 ### Exercise 3 - Technical Comparison of an SQL and Graph Database
 
-This exercise compares two differnts database paradigms relational (mySQL) against graph database (Neo4j) in different search depths. 
+This exercise compares two database paradigms relational database (mySQL) against graph database (Neo4j). We are going to conduct an experiment in each database performance in different search depths.  
+
 The dataset consinsts of 500.000 nodes and some millions edges. 
 
 
