@@ -1,15 +1,18 @@
+package logic;
+
+import interfaces.IQueries;
 import org.neo4j.driver.v1.*;
 
 /**
  * Created by ms on 01-04-17.
  */
-public class Cypher implements IQueries {
+public class Neo4j implements IQueries {
 
     Driver driver;
     Session session;
     private String name;
 
-    public Cypher(String name){
+    public Neo4j(String name){
         this.driver = GraphDatabase.driver( "bolt://localhost:7687", AuthTokens.basic( "neo4j", "class" ) );
         this.session  = driver.session();
         this.name = name;

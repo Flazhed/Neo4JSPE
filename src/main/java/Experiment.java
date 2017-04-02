@@ -1,3 +1,5 @@
+import interfaces.IQueries;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -8,7 +10,7 @@ import java.util.List;
 public class Experiment {
 
 
-    public  void executeExperiment(IQueries query, int[] persons) {
+    public void executeExperiment(IQueries query, int[] persons) {
 
         int max, min;
         double avg, timeAvg;
@@ -17,14 +19,14 @@ public class Experiment {
         List<Long> valuesTime;
 
         //For each depth
-        for(int j = 0; j <3; j++){ //SET THE DEPTH INTERVAL HERE
+        for (int j = 0; j < 5; j++) { //SET THE DEPTH INTERVAL HERE
 
             values = new ArrayList<Integer>();
             valuesTime = new ArrayList<Long>();
             //For each person
-            for(int i = 0; i < persons.length; i++){
+            for (int i = 0; i < persons.length; i++) {
                 startTime = System.currentTimeMillis();
-                switch(j) {
+                switch (j) {
                     case 0:
                         values.add(query.depthOne(i));
                         stopTime = System.currentTimeMillis();
@@ -48,27 +50,37 @@ public class Experiment {
                     default:
                         break;
                 }
-                valuesTime.add(stopTime-startTime);
+                valuesTime.add(stopTime - startTime);
             }
             max = Collections.max(values);
             min = Collections.min(values);
+            Collections.sort(values);
+
+
 
 
             double sum = 0;
-            for(Integer value : values) { sum += value;}
-            avg = sum/values.size();
+            for (Integer value : values) {
+                sum += value;
+            }
+            avg = sum / values.size();
 
-            System.out.println("Endorsments for: " + query.getQueryName() + " at depth " + (j+1) + " = Max: " + max + ", Min: " + min + ", Avg: " + avg);
+            System.out.println("Endorsments for: " + query.getQueryName() + " at depth " + (j + 1) + " = Max: " + max + ", Min: " + min + ", Avg: " + avg );
 
             timeMax = Collections.max(valuesTime);
             timeMin = Collections.min(valuesTime);
+            Collections.sort(valuesTime);
+
+            double median;
+            median = ((double) valuesTime.get(valuesTime.size() / 2) + (double) valuesTime.get(valuesTime.size() / 2 - 1)) / 2;
 
             double sumTime = 0;
-            for(long value : valuesTime) { sumTime += value;}
-            timeAvg = sumTime/values.size();
-            System.out.println("Time for: " + query.getQueryName() + " at depth " + (j+1) + " = Max: " + timeMax + "ms, Min: " + timeMin + "ms, Avg: " + timeAvg + "ms");
+            for (long value : valuesTime) {
+                sumTime += value;
+            }
+            timeAvg = sumTime / values.size();
+            System.out.println("Time for: " + query.getQueryName() + " at depth " + (j + 1) + " = Max: " + timeMax + "ms, Min: " + timeMin + "ms, Avg: " + timeAvg + "ms" + " Median: " + median+ "ms");
         }
-
 
 
     }

@@ -1,4 +1,4 @@
-
+package interfaces;
 
 /**
  * Created by ms on 01-04-17.
